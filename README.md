@@ -1,10 +1,10 @@
 This distribution of nachos contains all of the original nachos code, wrapped
-in a default eclipse workbench that includes Run Configurations for
+in a default eclipse workspace that includes Run Configurations for
 running tests with JUnit.
 
-Simply point eclipse at the root of this repo as your workbench directory, and
-select one of the JUnit Run Configurations that have been set up for each
-project.
+Simply point eclipse at the root of this repo as your workspace directory (you
+may need to switch workspaces under File->Switch Workspace), and select one of
+the JUnit Run Configurations that have been set up for each project.
 
     Run -> Run Configurations -> JUnit
 
