@@ -66,12 +66,12 @@ test file per task you have to complete in the project (e.g. JoinTests.java,
 Condition2Tests.java, etc.).
 
 ```java
-package nachos.test.unittest;
+package nachos.proj1;
 
+import nachos.test.unittest.TestHarness;
 import static org.junit.Assert.assertTrue;
 import nachos.threads.Communicator;
 import nachos.threads.KThread;
-import nachos.threads.ThreadedKernel;
 
 import org.junit.Test;
 
