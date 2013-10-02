@@ -1,0 +1,24 @@
+This distribution of nachos contains all of the original nachos code, wrapped
+in a default eclipse workbench that includes Run Configurations for
+running tests with JUnit.
+
+Simply point eclipse at the root of this repo as your workbench directory, and
+select one of the JUnit Run Configurations that have been set up for each
+project.
+
+Run -> Run Configurations -> JUnit
+
+Some default JUnit tests have been set up for you, but you should add
+your own tests throughout the course of each project.
+
+nachos.proj1
+  UnitTests.java
+
+nachos.proj2
+  UnitTests.java
+
+nachos.proj3
+  UnitTests.java
+
+nachos.proj4
+  UnitTests.java
