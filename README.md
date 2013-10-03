@@ -72,6 +72,7 @@ import nachos.test.unittest.TestHarness;
 import static org.junit.Assert.assertTrue;
 import nachos.threads.Communicator;
 import nachos.threads.KThread;
+import nachos.machine.Machine;
 
 import org.junit.Test;
 
@@ -83,14 +84,21 @@ public class CommunicatorTests extends TestHarness {
 
             @Override
             public void run() {
-                Communicator commu = new Communicator();
-                Listener listener = new Listener(commu);
-                KThread thread1 = new KThread(new Speaker(0xdeadbeef, commu))
-                        .setName("Speaker Thread");
+                Communicator c = new Communicator();
+                Speaker s = new Speaker(0xdeadbeef, c);
+                Listener l = new Listener(c);
+
+                KThread thread1 = new KThread(s).setName("Speaker Thread");
+                KThread thread2 = new KThread(l).setName("Listener Thread");
+                
                 thread1.fork();
-                listener.run();
+                thread2.fork();
+                
+                thread1.join();
+                thread2.join();
+                
                 assertTrue("Incorrect Message recieved",
-                        0xdeadbeef == listener.getMessage());
+                        0xdeadbeef == l.getMessage());
             }
 
         });
@@ -107,7 +115,9 @@ public class CommunicatorTests extends TestHarness {
         }
 
         public void run() {
+            System.out.println("Listener Listening!");
             msg = commu.listen();
+            System.out.println("Listener Return!");
             hasRun = true;
         }
 
@@ -127,7 +137,9 @@ public class CommunicatorTests extends TestHarness {
         }
 
         public void run() {
+            System.out.println("Speaker Speaking!");
             commu.speak(msg);
+            System.out.println("Speaker Return!");
         }
     }
 }
