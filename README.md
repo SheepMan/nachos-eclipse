@@ -1,10 +1,13 @@
+Overview
+===================
 This distribution of nachos contains all of the original nachos code, wrapped
 in a default eclipse workspace that includes Run Configurations for
 running tests with JUnit.
 
-Simply point eclipse at the root of this repo as your workspace directory (you
-may need to switch workspaces under File->Switch Workspace), and select one of
-the JUnit Run Configurations that have been set up for each project.
+Simply launch eclipse with the root of this repo set as your workspace
+directory (if you are already running, you can just switch workspaces under
+File->Switch Workspace), and select one of the JUnit Run Configurations that
+have been set up for each project.
 
     Run -> Run Configurations -> JUnit
 
@@ -23,6 +26,13 @@ your own tests throughout the course of each project.
     nachos.proj4
       UnitTests.java
 
+Since a default workspace is set up for you, we've had to store some of the
+metadata files associated with the workspace as part of the repo itself.  If
+you want git to ignore updates to this metadata, you can run the runme-once.sh
+script to force git to ignore updates to these files.
+
+Creating Unit Tests
+===================
 In general, a new unit test can be created by adding a function to the
 UnitTests.java file for a given project, and directing it to enqueue a new
 Runnable Job. The order in which the jobs run is arbitrary, but each job will
@@ -45,7 +55,10 @@ public void testMethod() {
 }
 ```
 
-To use a different scheduler have your test code override
+As you'll notice the class that contains these tests is extended from the
+nachos.tests.unittest.TestHarness class.  If you'd like your tests to use a
+different scheduler you can simply override the getScheduler() method in your
+derived class.
 
 ```java
 protected static Class<? extends Scheduler> getScheduler() {
