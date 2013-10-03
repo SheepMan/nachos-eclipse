@@ -2,15 +2,55 @@ Overview
 ===================
 This distribution of nachos contains all of the original nachos code, wrapped
 in a default eclipse workspace that includes Run Configurations for
-running tests with JUnit.
+running tests with JUnit. Follow the instructions below to get set up and 
+running with Nachos and JUnit in eclipse:
 
-Simply launch eclipse with the root of this repo set as your workspace
-directory (if you are already running, you can just switch workspaces under
-File->Switch Workspace), and select one of the JUnit Run Configurations that
-have been set up for each project.
+##### Required steps:
 
-    Run -> Run Configurations -> JUnit
+1. Launch eclipse with your worspace pointing to the directory containing this 
+   README (i.e. 'nachos-eclipse' if you haven't chosen to rename it). If you 
+   are already running eclipse, you can just switch workspaces
 
+        File- > Switch Workspace
+    
+2. Refresh your 'nachos-root' tree to force a rebuild of all .class files
+
+        Right click on 'nachos-root' and select Refresh (or press F5)
+    
+3. Select one of the JUnit Run Configurations that have been set up for each 
+   project and run it.  You should see some sample unit tests run to 
+   completion and Nachos should exit gracefully.
+
+        Run -> Run Configurations -> JUnit -> Project {1,2,3,4}
+        
+##### Optional steps:
+
+1. Set up a remote for this repo to point to your CS162 project group repo.
+   Doing so will allow you to both track changes from the original 
+   'nachos-eclipse' repo as well as push changes to your own copy of the 
+   repo as you extend nachos while working on the projects.
+
+        git remote add groupXX git@github.com:Berkeley-CS162/groupXX.git
+
+    From here on out you can pull changes from the original repo with
+    
+        git pull origin master
+
+    And push/pull changes to your group repo with
+    
+        git push groupXX master
+        git pull groupXX master
+
+2. Run the runme-once.sh script. Since a default workspace is set up for you, 
+   we've had to store some of the metadata files associated with the workspace
+   as part of the repo itself.  If you want git to ignore updates to this 
+   metadata, you can run the runme-once.sh script to force git to ignore 
+   updates to these files.
+
+        ./runme-once.sh
+
+Creating Unit Tests
+===================
 Some default JUnit tests have been set up for you, but you should add
 your own tests throughout the course of each project.
 
@@ -26,13 +66,6 @@ your own tests throughout the course of each project.
     nachos.proj4
       UnitTests.java
 
-Since a default workspace is set up for you, we've had to store some of the
-metadata files associated with the workspace as part of the repo itself.  If
-you want git to ignore updates to this metadata, you can run the runme-once.sh
-script to force git to ignore updates to these files.
-
-Creating Unit Tests
-===================
 In general, a new unit test can be created by adding a function to the
 UnitTests.java file for a given project, and directing it to enqueue a new
 Runnable Job. The order in which the jobs run is arbitrary, but each job will
