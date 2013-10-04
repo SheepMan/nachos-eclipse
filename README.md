@@ -78,7 +78,7 @@ As an example, consider the definition of the UnitTests test suite for Project
 @RunWith(Suite.class)
 @SuiteClasses({
     ExampleTests.class,
-//  CommunicatorTests.class,
+    CommunicatorTests.class,
 })
 public class UnitTests extends TestHarness {}
 ```
@@ -89,6 +89,18 @@ provided both an ExampleTests class, as well as a fully functional
 CommunicatorTests class as examples. Take a look at each of these classes to
 see get a better idea of what it takes to define a class with a set of unit
 tests under this setup.
+
+```
+NOTE: You MUST run the entire UnitTests Test Suite, not just individual 
+classes containing test cases.  Individual classes have not been set up to use
+the Nachos Test Harness, and if you try and run them individually you will get a 
+java.lang.NullPointerException.
+
+To work around this, you can pick and choose which classes to run tests from by 
+selectively commenting them out in the UnitTests @SuiteClasses attribute.
+Alternatively, you can create a new test suite modeled after UnitTests that 
+includes a different set of test classes and execute that one separately.
+```
 
 In general, a new class of unit tests can created by simply defining a class
 and adding test functions to it of the form shown below.  So long as these
