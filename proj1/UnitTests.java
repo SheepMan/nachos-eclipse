@@ -28,6 +28,6 @@ import org.junit.runners.Suite.SuiteClasses;
 @RunWith(Suite.class)
 @SuiteClasses({ 
 	ExampleTests.class, 
-//	CommunicatorTests.class,
+	CommunicatorTests.class,
 })
 public class UnitTests extends TestHarness {}
