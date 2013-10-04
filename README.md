@@ -102,11 +102,12 @@ public void testMethod() {
         new Runnable() {
             public void run() {
                 // Some testing code goes here
-                KThread.currentThread.sleep(); // nachos code
-                Assert.assertTrue(true);       // JUnit assertions
+                KThread.currentThread.sleep(); // Nachos Threading code
             }
         }
     );
+    // Should exist outside of the enqueued Runnable
+    Assert.assertTrue(true);  // JUnit assertions
 }
 ```
 
@@ -121,7 +122,7 @@ protected static Class<? extends Scheduler> getScheduler() {
 }
 ```
 
-This fucntionality is most useful if you wish to create more 'top-level' test
+This functionality is most useful if you wish to create more 'top-level' test
 suites like the UnitTests one we provide.  You just need to make sure and set
 up a different run configuration for them before you run them.
 
