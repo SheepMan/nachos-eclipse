@@ -21,7 +21,7 @@ local metadata_files=$( cat <<EOF
 .metadata/.plugins/org.eclipse.core.resources/.root/.indexes/history.version
 .metadata/.plugins/org.eclipse.core.resources/.root/.indexes/properties.index
 .metadata/.plugins/org.eclipse.core.resources/.root/.indexes/properties.version
-.metadata/.plugins/org.eclipse.core.resources/.root/1.tree
+.metadata/.plugins/org.eclipse.core.resources/.root/2.tree
 .metadata/.plugins/org.eclipse.core.resources/.safetable/org.eclipse.core.resources
 .metadata/.plugins/org.eclipse.core.runtime/.settings/org.eclipse.core.resources.prefs
 .metadata/.plugins/org.eclipse.core.runtime/.settings/org.eclipse.debug.ui.prefs

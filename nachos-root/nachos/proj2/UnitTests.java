@@ -1,41 +1,27 @@
 package nachos.proj2;
 
-import static org.junit.Assert.assertTrue;
-
-import org.junit.Test;
-
 import nachos.test.unittest.TestHarness;
 
-public class UnitTests extends TestHarness {
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
-	@Test
-	public void exampleTest1() {
-		enqueueJob(new Runnable() {
+/**
+ * This class extends the TestHarness class for setting up and running JUnit
+ * tests with Nachos. You must list all of the classes that contain tests you
+ * want to run in a comma separated list associated with the @SuiteClasses
+ * attribute below.
+ * 
+ * An ExampleTests class has been included for you. Take a look at the
+ * definition of this class to see some examples of how to create tests and have
+ * them run as part of this test suite.
+ * 
+ * @author Kevin Klues <klueska@cs.berkeley.edu>
+ * 
+ */
 
-			@Override
-			public void run() {
-                System.out.println("Starting Project 2 exampleTest1!");
-				// Uncomment to see the unit test fail!
-				//assertTrue("Project 2 exampleTest1 failed!", false);
-                System.out.println("Finishing Project 2 exampleTest1!");
-			}
-
-		});
-	}
-	
-	@Test
-	public void exampleTest2() {
-		enqueueJob(new Runnable() {
-
-			@Override
-			public void run() {
-                System.out.println("Starting Project 2 exampleTest2!");
-				// Uncomment to see the unit test fail!
-				//assertTrue("Project 2 exampleTest2 failed!", false);
-                System.out.println("Finishing Project 2 exampleTest2!");
-			}
-
-		});
-	}
-
-}
+@RunWith(Suite.class)
+@SuiteClasses({ 
+	ExampleTests.class, 
+})
+public class UnitTests extends TestHarness {}

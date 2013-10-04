@@ -9,8 +9,8 @@ INDEX VERSION 1.126+/Users/klueska/projects/cs162/nachos-master/init/.metadata/.
 770573466.index
 3004609673.index
 156905802.index
-1271342938.index
 2326659272.index
+1271342938.index
 3712507179.index
 272178059.index
 84777399.index

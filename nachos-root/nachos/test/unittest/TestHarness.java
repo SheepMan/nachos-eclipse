@@ -3,15 +3,11 @@
  */
 package nachos.test.unittest;
 
-import java.lang.Thread.UncaughtExceptionHandler;
-import java.security.Permission;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.TimeUnit;
 
 import junit.framework.TestCase;
 import nachos.machine.Machine;
@@ -30,7 +26,6 @@ public abstract class TestHarness {
 	protected static BlockingQueue<Runnable> instructionQueue;
 	protected static BlockingQueue<Object> messageQueue;
 	private static ExecutorService nachosExecutor;
-	private static Future<Object> nachosFuture;
 
 	protected static Class<? extends Scheduler> getScheduler() {
 		return RoundRobinScheduler.class;
@@ -57,7 +52,7 @@ public abstract class TestHarness {
 			}
 		};
 		nachosExecutor = Executors.newSingleThreadExecutor();
-		nachosFuture = nachosExecutor.submit(nachosTask);
+		nachosExecutor.submit(nachosTask);
 		messageQueue.take();
 	}
 
@@ -68,7 +63,7 @@ public abstract class TestHarness {
 	 *            task to run
 	 * @return
 	 */
-	protected static void enqueueJob(Runnable r) {
+	public static void enqueueJob(Runnable r) {
 		instructionQueue.offer(r);
 		Thread.yield();
 		try {
@@ -84,13 +79,12 @@ public abstract class TestHarness {
 	 */
 	@AfterClass
 	public static final void tearDownAfterClass() throws Exception {
-			instructionQueue.offer(new Runnable() {
-				@Override
-				public void run() {
-					Machine.halt();
-				}
-			});
-			Thread.yield();
-		
+		instructionQueue.offer(new Runnable() {
+			@Override
+			public void run() {
+				Machine.halt();
+			}
+		});
+		Thread.yield();
 	}
 }

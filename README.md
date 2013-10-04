@@ -7,7 +7,7 @@ running with Nachos and JUnit in eclipse:
 
 ##### Required steps:
 
-1. Launch eclipse with your worspace pointing to the directory containing this 
+1. Launch eclipse with your workspace pointing to the directory containing this 
    README (i.e. 'nachos-eclipse' if you haven't chosen to rename it). If you 
    are already running eclipse, you can just switch workspaces
 
@@ -51,8 +51,8 @@ running with Nachos and JUnit in eclipse:
 
 Creating Unit Tests
 ===================
-Some default JUnit tests have been set up for you, but you should add
-your own tests throughout the course of each project.
+A UnitTests test harness has been set up for each project and is located in the
+one of the files listed below:
 
     nachos.proj1
       UnitTests.java
@@ -66,17 +66,39 @@ your own tests throughout the course of each project.
     nachos.proj4
       UnitTests.java
 
-In general, a new unit test can be created by adding a function to the
-UnitTests.java file for a given project, and directing it to enqueue a new
-Runnable Job. The order in which the jobs run is arbitrary, but each job will
-run to completion before the next one is started.
+The UnitTests test harness for each project is set up as a JUnit Test Suite,
+which will launch a single instance of Nachos and run any tests you define as
+part of the suite one after another.  Different sets of unit tests can be
+logically grouped into their own class, and added to the Test Suite as desired.
 
-For example:
+As an example, consider the definition of the UnitTests test suite for Project
+1:
+
+```java
+@RunWith(Suite.class)
+@SuiteClasses({
+    ExampleTests.class,
+//  CommunicatorTests.class,
+})
+public class UnitTests extends TestHarness {}
+```
+
+The UnitTests class is defined with an attribute of @SuiteClasses, where any
+classes you define to contain Nachos JUnit tests should be listed.  We have
+provided both an ExampleTests class, as well as a fully functional
+CommunicatorTests class as examples. Take a look at each of these classes to
+see get a better idea of what it takes to define a class with a set of unit
+tests under this setup.
+
+In general, a new class of unit tests can created by simply defining a class
+and adding test functions to it of the form shown below.  So long as these
+classes are listed in the @SuiteClasses attribute of the UnitTests, they will
+be ran once the appropriate Run Configuration has been executed.
 
 ```java
 @Test
 public void testMethod() {
-    enqueueJob(
+    UnitTests.enqueueJob(
         new Runnable() {
             public void run() {
                 // Some testing code goes here
@@ -88,10 +110,10 @@ public void testMethod() {
 }
 ```
 
-As you'll notice the class that contains these tests is extended from the
-nachos.tests.unittest.TestHarness class.  If you'd like your tests to use a
-different scheduler you can simply override the getScheduler() method in your
-derived class.
+One thing to note is that the provided UnitTests test Suite is by default
+defined to use the default Nachos Round Robin Scheduler.  If you'd like to 
+use a different scheduler, you will need to overwrite its getScheduler() method
+as defined below.
 
 ```java
 protected static Class<? extends Scheduler> getScheduler() {
@@ -99,34 +121,31 @@ protected static Class<? extends Scheduler> getScheduler() {
 }
 ```
 
-If you'd like to organize your tests across multiple files, feel free to.  Just
-create a file for a new class that extends TestHarness, add some test
-functions, and place it in the project folder where you want those tests to be
-executed.
+This fucntionality is most useful if you wish to create more 'top-level' test
+suites like the UnitTests one we provide.  You just need to make sure and set
+up a different run configuration for them before you run them.
 
-Below is a full example of a usable unit test for the Communicator task in
-project 1.  Simply copy and paste this into a
-nachos/proj1/CommunicatorTests.java file and execute the Project 1 JUnit Run
-Configuration.  You may wish to follow a similar pattern, creating one unit
-test file per task you have to complete in the project (e.g. JoinTests.java,
-Condition2Tests.java, etc.).
+As provided in Project 1, a full example of a unit test for the Communicator
+task can be found below. You may wish to follow a similar pattern, creating one
+unit test file per task you have to complete in the project (e.g.
+JoinTests.java, Condition2Tests.java, etc.).
+
+Happy Testing!
 
 ```java
 package nachos.proj1;
 
-import nachos.test.unittest.TestHarness;
-import static org.junit.Assert.assertTrue;
 import nachos.threads.Communicator;
 import nachos.threads.KThread;
-import nachos.machine.Machine;
 
 import org.junit.Test;
+import static org.junit.Assert.assertTrue;
 
-public class CommunicatorTests extends TestHarness {
+public class CommunicatorTests {
 
     @Test
     public void testCommunicator() {
-        enqueueJob(new Runnable() {
+        UnitTests.enqueueJob(new Runnable() {
 
             @Override
             public void run() {
@@ -136,13 +155,13 @@ public class CommunicatorTests extends TestHarness {
 
                 KThread thread1 = new KThread(s).setName("Speaker Thread");
                 KThread thread2 = new KThread(l).setName("Listener Thread");
-                
+
                 thread1.fork();
                 thread2.fork();
-                
+
                 thread1.join();
                 thread2.join();
-                
+
                 assertTrue("Incorrect Message recieved",
                         0xdeadbeef == l.getMessage());
             }
